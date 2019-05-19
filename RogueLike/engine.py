@@ -1,15 +1,20 @@
 import libtcodpy as libtcod
 
-from input_handlers import handle_keys
 from entity import Entity
-from render_functions import clear_all, render_all
+from input_handlers import handle_keys
 from map_objects.game_map import GameMap
+from render_functions import clear_all, render_all
+
 
 def main():
   screen_width = 80
   screen_height = 50
   map_width = 80
   map_height = 45
+  
+  room_max_size = 10
+  room_min_size = 6
+  max_rooms = 30
   
   colors = {
     'dark_wall': libtcod.Color(0,0,100),
@@ -27,6 +32,7 @@ def main():
   con = libtcod.console_new(screen_width, screen_height)
   
   game_map = GameMap(map_width, map_height)
+  game_map.make_map()
   
   key = libtcod.Key()
   mouse = libtcod.Mouse()
@@ -46,8 +52,11 @@ def main():
     exit = action.get('exit')
     fullscreen = action.get('fullscreen')
     
-    if not game_map.is_blocked(player.x + dx, player.y + dy):
-      player.move(dx, dy)
+    if move:
+      dx, dy = move
+    
+      if not game_map.is_blocked(player.x + dx, player.y + dy):
+        player.move(dx, dy)
 	  
     if exit:
       return True
@@ -59,4 +68,4 @@ def main():
       return True
 
 if __name__ == '__main__':
-  main() 
+  main()

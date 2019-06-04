@@ -24,7 +24,7 @@ def main():
   colors = {
     'dark_wall': libtcod.Color(0,0,100),
     'dark_ground': libtcod.Color(50,50,150),
-    'light_wall': libtcod.color(132, 115, 50),
+    'light_wall': libtcod.Color(132, 115, 50),
     'light_ground': libtcod.Color(200, 185, 55)
     }
   
@@ -54,7 +54,9 @@ def main():
     if fov_recompute:
       recompute_fov(fov_map, player.x, player.y, fov_radius, fov_light_walls, fov_algorithm)
     
-    render_all(con, entities, game_map, screen_width, screen_height, colors)
+    render_all(con, entities, game_map, fov_map, fov_recompute, screen_width, screen_height, colors)
+
+    fov_recompute = False
     
     libtcod.console_flush()
     

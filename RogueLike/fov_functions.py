@@ -1,4 +1,4 @@
-import tcod as libtcod
+import libtcodpy as libtcod
 
 def initialize_fov(game_map):
 	fov_map = libtcod.map_new(game_map.width, game_map.height)

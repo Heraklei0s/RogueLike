@@ -26,6 +26,46 @@ class GameMap:
       # random position without going out of the boundaries of the map
       x = randint(0, map_width - w - 1)
       y = randint(0, map_height - h - 1)
+
+      # "Rect" class makes rectangle object easier to work with
+      new_room = Rect(x, y, w, h)
+
+      # run throguh the other rooms and see if they intersect with this one, don't want that
+      for other_room in rooms:
+        if new_room.intersect(other_room):
+          break
+      else:
+        #No intersection, so let's make a room
+
+        #Painting it to the map's tiles
+        self.create_room(new_room)
+
+        #center coordinates of new room, will be useful later
+        (new_x, new_y) = new_room.center()
+
+        if num_rooms ==0:
+          # setting the first room where the player will start
+          player.x = new_x
+          player.y = new_y
+        else:
+          #all rooms after the first:
+          #connects it to the previous room with a tunnel
+
+          #center coordinates of previous room
+          (prev_x, prev_y) = rooms[num_rooms -1].center()
+
+          #creates a random 0 or 1 - this is to get some limited variety in the tunnel creation
+          if rantint(0,1) == 1:
+            #first move horizontally, then vertically
+            self.create_h_tunnel(prev_x, new_x, prev_y)
+            self.create_v_tunnel(prev_y, new_y, new_x)
+          else:
+            #First vertical, then horizontal
+            self.create_v_tunnel(prev_y, new_y, new_x)
+            self.create_h_tunnel(prev_x, new_x, prev_y)
+        # now we append the room to the list
+        rooms.append(new_room)
+        num_rooms += 1
     
   def create_room(self, room):
     #go through the tiels in the rectangle room and make them passable

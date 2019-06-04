@@ -55,7 +55,7 @@ class GameMap:
           (prev_x, prev_y) = rooms[num_rooms -1].center()
 
           #creates a random 0 or 1 - this is to get some limited variety in the tunnel creation
-          if rantint(0,1) == 1:
+          if randint(0,1) == 1:
             #first move horizontally, then vertically
             self.create_h_tunnel(prev_x, new_x, prev_y)
             self.create_v_tunnel(prev_y, new_y, new_x)
@@ -79,7 +79,7 @@ class GameMap:
       self.tiles[x][y].blocked = False
       self.tiles[x][y].block_sight = False
     
-  def create_v_tunnel(self, x1, x2, y):
+  def create_v_tunnel(self, y1, y2, x):
     for y in range(min(y1, y2), max(y1, y2) +1):
       self.tiles[x][y].blocked = False
       self.tiles[x][y].block_sight = False

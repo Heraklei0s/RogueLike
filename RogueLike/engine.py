@@ -87,10 +87,11 @@ def main():
           player.move(dx, dy)
 
           fov_recompute = True
-	      game_state = GameStates.ENEMY_TURN
+
+        game_state = GameStates.ENEMY_TURN
     if exit:
       return True
-	
+  
     if fullscreen:
       libtcod.console_set_fullscreen(not libtcod.console_is_fullscreen())
 
@@ -100,7 +101,7 @@ def main():
           print('The ' + entity.name + ' ponders the meaning of its existence.')
 
       game_state = GameStates.PLAYERS_TURN
-	
+  
     if key.vk == libtcod.KEY_ESCAPE:
       return True
 

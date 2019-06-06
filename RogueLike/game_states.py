@@ -1,4 +1,4 @@
-from enum import enum
+from enum import Enum
 
 # this will keep track of values that need to stay immutable
 class GameStates(Enum):
